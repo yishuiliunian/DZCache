@@ -33,4 +33,5 @@ Pod::Spec.new do |s|
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'DZCDNFiles'
   s.dependency 'DZSinglonFactory'
+  s.dependency 'DZGeometryTools'
 end

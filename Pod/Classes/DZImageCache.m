@@ -10,6 +10,7 @@
 #import "DZMemoryCache.h"
 #import "DZSingletonFactory.h"
 #import "DZCDNActionManager.h"
+#import "DZDevices.h"
 @implementation DZImageCache
 
 + (DZImageCache*) shareCache

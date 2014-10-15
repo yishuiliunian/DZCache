@@ -24,9 +24,6 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		65AF8CC819EE6C0500CE5879 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 65AF8CC319EE6C0500CE5879 /* .gitkeep */; };
-		65AF8CC919EE6C0500CE5879 /* DZImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65AF8CC519EE6C0500CE5879 /* DZImageCache.m */; };
-		65AF8CCA19EE6C0500CE5879 /* DZMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65AF8CC719EE6C0500CE5879 /* DZMemoryCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,11 +62,6 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6312D645601209044494EA4F /* Pods-DZCache.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DZCache.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DZCache/Pods-DZCache.debug.xcconfig"; sourceTree = "<group>"; };
-		65AF8CC319EE6C0500CE5879 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		65AF8CC419EE6C0500CE5879 /* DZImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZImageCache.h; sourceTree = "<group>"; };
-		65AF8CC519EE6C0500CE5879 /* DZImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZImageCache.m; sourceTree = "<group>"; };
-		65AF8CC619EE6C0500CE5879 /* DZMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZMemoryCache.h; sourceTree = "<group>"; };
-		65AF8CC719EE6C0500CE5879 /* DZMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZMemoryCache.m; sourceTree = "<group>"; };
 		76E0DC7B23E34FA243335F69 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9472E08BA49EB4BACAF8042E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		E780C9D60A7E993635E5586E /* libPods-DZCache.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DZCache.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,7 +132,6 @@
 		6003F593195388D20070C39A /* DZCache */ = {
 			isa = PBXGroup;
 			children = (
-				65AF8CC219EE6C0500CE5879 /* Classes */,
 				6003F59C195388D20070C39A /* DZAppDelegate.h */,
 				6003F59D195388D20070C39A /* DZAppDelegate.m */,
 				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
@@ -191,19 +182,6 @@
 				EFEB2F7ACB29DE756B21F1D5 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		65AF8CC219EE6C0500CE5879 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				65AF8CC319EE6C0500CE5879 /* .gitkeep */,
-				65AF8CC419EE6C0500CE5879 /* DZImageCache.h */,
-				65AF8CC519EE6C0500CE5879 /* DZImageCache.m */,
-				65AF8CC619EE6C0500CE5879 /* DZMemoryCache.h */,
-				65AF8CC719EE6C0500CE5879 /* DZMemoryCache.m */,
-			);
-			name = Classes;
-			path = ../../Pod/Classes;
 			sourceTree = "<group>";
 		};
 		890FCCA604C00D9623832741 /* Pods */ = {
@@ -300,7 +278,6 @@
 			files = (
 				6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
-				65AF8CC819EE6C0500CE5879 /* .gitkeep in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -386,9 +363,7 @@
 			files = (
 				6003F59E195388D20070C39A /* DZAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* DZViewController.m in Sources */,
-				65AF8CC919EE6C0500CE5879 /* DZImageCache.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				65AF8CCA19EE6C0500CE5879 /* DZMemoryCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
