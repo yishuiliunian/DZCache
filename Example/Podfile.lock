@@ -1,0 +1,14 @@
+PODS:
+  - DZCache (0.1.0)
+
+DEPENDENCIES:
+  - DZCache (from `../`)
+
+EXTERNAL SOURCES:
+  DZCache:
+    :path: ../
+
+SPEC CHECKSUMS:
+  DZCache: d0baee775d3191184d841d406fb8bcb359a16f83
+
+COCOAPODS: 0.34.2

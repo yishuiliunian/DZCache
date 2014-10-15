@@ -9,19 +9,22 @@
 
 Pod::Spec.new do |s|
   s.name             = "DZCache"
-  s.version          = "1.0.0"
-  s.summary          = "内存缓存组件"
+  s.version          = "0.1.0"
+  s.summary          = "A short description of DZCache."
   s.description      = <<-DESC
-                       内存缓存组件，图片缓存
+                       An optional longer description of DZCache
+
+                       * Markdown format.
+                       * Don't worry about the indent, we strip it!
                        DESC
-  s.homepage         = "https://github.com/yishuiliunian/DZCache"
+  s.homepage         = "https://github.com/<GITHUB_USERNAME>/DZCache"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "stonedong" => "yishuiliunian@gmail.com" }
-  s.source           = { :git => "https://github.com/yishuiliunian/DZCache.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/DZCache.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.platform     = :ios, '5.0'
+  s.platform     = :ios, '7.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes'
@@ -31,6 +34,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'DZCDNFiles'
-  s.dependency 'DZSinglonFactory'
+  # s.dependency 'AFNetworking', '~> 2.3'
 end
