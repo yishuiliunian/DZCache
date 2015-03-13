@@ -1,5 +1,12 @@
 PODS:
-  - DZCache (0.1.0)
+  - DZCache (1.0.0):
+    - DZCDNFiles
+    - DZGeometryTools
+    - DZSinglonFactory
+  - DZCDNFiles (1.0.1):
+    - DZSinglonFactory
+  - DZGeometryTools (1.0.0)
+  - DZSinglonFactory (1.0.0)
 
 DEPENDENCIES:
   - DZCache (from `../`)
@@ -9,6 +16,9 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  DZCache: d0baee775d3191184d841d406fb8bcb359a16f83
+  DZCache: c37a97fc618e02dcebbabc96421c41774c935828
+  DZCDNFiles: 0a6b071b8d57dadfcb0089c314d2e70435742559
+  DZGeometryTools: e1c57508aa0679684bf2ccc3a05d3b6c797c8196
+  DZSinglonFactory: b7fdac485e282c583a85e644a20878fe3d4cf891
 
-COCOAPODS: 0.34.2
+COCOAPODS: 0.35.0.rc2

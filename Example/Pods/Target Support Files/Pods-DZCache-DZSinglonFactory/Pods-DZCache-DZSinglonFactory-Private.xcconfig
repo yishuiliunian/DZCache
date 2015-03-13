@@ -1,0 +1,5 @@
+#include "Pods-DZCache-DZSinglonFactory.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/DZSinglonFactory" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/DZCDNFiles" "${PODS_ROOT}/Headers/Public/DZCache" "${PODS_ROOT}/Headers/Public/DZGeometryTools" "${PODS_ROOT}/Headers/Public/DZSinglonFactory"
+OTHER_LDFLAGS = -ObjC
+PODS_ROOT = ${SRCROOT}
