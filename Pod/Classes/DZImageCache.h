@@ -17,6 +17,7 @@
 typedef void(^GetImageBlock)(UIImage*image);
 
 @interface DZImageCache : NSObject
+@property (nonatomic, strong) NSString* imagesDirectory;
 + (DZImageCache*) shareCache;
 - (UIImage*) cachedImageForName:(NSString*)name;
 - (UIImage*) cachedImageFroPath:(NSString*)path;

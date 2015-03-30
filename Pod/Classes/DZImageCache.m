@@ -50,12 +50,19 @@
     for (NSString* type in fileTypes) {
         
         NSString*  retinaFileName = [fileName stringByAppendingString:@"@2x"];
-        path = [[NSBundle mainBundle] pathForResource:retinaFileName ofType:type];
+        if (self.imagesDirectory) {
+            path = [[NSBundle mainBundle]  pathForResource:retinaFileName ofType:type inDirectory:self.imagesDirectory];
+        } else {
+            path = [[NSBundle mainBundle] pathForResource:retinaFileName ofType:type];
+        }
         if (path) {
             break;
         }
-        
-        path = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
+        if (self.imagesDirectory) {
+            path = [[NSBundle mainBundle] pathForResource:fileName ofType:type inDirectory:self.imagesDirectory];
+        } else {
+            path = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
+        }
         if (path) {
             break;
         }

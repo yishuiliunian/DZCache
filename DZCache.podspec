@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "DZCache"
-  s.version          = "1.0.2"
+  s.version          = "1.0.3"
   s.summary          = "内存缓存组件"
   s.description      = <<-DESC
                        内存缓存组件，图片缓存
