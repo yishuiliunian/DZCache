@@ -20,6 +20,11 @@
 
 - (UIImage*) cachedImageForName:(NSString*)name
 {
+    return [self cachedImageForName:name inBundle:[NSBundle mainBundle]];
+}
+
+- (UIImage*) cachedImageForName:(NSString *)name inBundle:(NSBundle*)bundle
+{
     if (name == nil) {
         return nil;
     }
@@ -51,17 +56,17 @@
         
         NSString*  retinaFileName = [fileName stringByAppendingString:@"@2x"];
         if (self.imagesDirectory) {
-            path = [[NSBundle mainBundle]  pathForResource:retinaFileName ofType:type inDirectory:self.imagesDirectory];
+            path = [bundle  pathForResource:retinaFileName ofType:type inDirectory:self.imagesDirectory];
         } else {
-            path = [[NSBundle mainBundle] pathForResource:retinaFileName ofType:type];
+            path = [bundle pathForResource:retinaFileName ofType:type];
         }
         if (path) {
             break;
         }
         if (self.imagesDirectory) {
-            path = [[NSBundle mainBundle] pathForResource:fileName ofType:type inDirectory:self.imagesDirectory];
+            path = [bundle pathForResource:fileName ofType:type inDirectory:self.imagesDirectory];
         } else {
-            path = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
+            path = [bundle pathForResource:fileName ofType:type];
         }
         if (path) {
             break;
@@ -74,7 +79,6 @@
     }
     return image;
 }
-
 - (UIImage*) cachedImageFroPath:(NSString*)path
 {
     UIImage* image = [DZMemoryShareCache objectForKey:path];
@@ -106,12 +110,10 @@
             } else {
                 if (name) {
                     image = [self cachedImageForName:name];
-                    
                     if (block) {
                         block(image);
                     }
                 }
-
             }
         }];
     }

@@ -20,6 +20,7 @@ typedef void(^GetImageBlock)(UIImage*image);
 @property (nonatomic, strong) NSString* imagesDirectory;
 + (DZImageCache*) shareCache;
 - (UIImage*) cachedImageForName:(NSString*)name;
+- (UIImage*) cachedImageForName:(NSString *)name inBundle:(NSBundle*)bundle;
 - (UIImage*) cachedImageFroPath:(NSString*)path;
 - (void) cachedImageForServerURL:(NSString*)url
             placeHolderImageName:(NSString*)name
@@ -27,3 +28,4 @@ typedef void(^GetImageBlock)(UIImage*image);
 - (void) cachedImageUsingDefaultPlaceHolderForServerURL:(NSString *)url
                                              downloaded:(GetImageBlock)block;
 @end
+
