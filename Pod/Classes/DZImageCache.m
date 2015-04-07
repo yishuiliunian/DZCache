@@ -111,7 +111,7 @@ NSString* ImageSubfixForCurrentScreen()
     });
     
     for (NSString* subfix in ImageNameSubfixArray) {
-        path = ImagePathForSubfix(name, subfix);
+        path = ImagePathForSubfix(fileName, subfix);
         if (path) {
             break;
         }
