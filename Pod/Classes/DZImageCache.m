@@ -11,6 +11,26 @@
 #import "DZSingletonFactory.h"
 #import "DZCDNActionManager.h"
 #import "DZDevices.h"
+
+
+NSString* ImageSubfixForCurrentScreen()
+{
+    static NSString* subfix = @"";
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CGFloat scale = [UIScreen mainScreen].scale;
+        if (ABS(scale - 3) < 0.01) {
+            subfix = @"@3x";
+        } else if (ABS(scale - 2) < 0.01) {
+            subfix = @"@2x";
+        } else {
+            subfix = @"";
+        }
+    });
+    
+    return subfix;
+}
+
 @implementation DZImageCache
 
 + (DZImageCache*) shareCache
@@ -51,23 +71,47 @@
     }
     NSString* path = nil;
     
+    NSString*(^ImagePathWithName)(NSString* realName) = ^(NSString* realName) {
+        NSString* path;
+        for (NSString* type in fileTypes) {
+            if (self.imagesDirectory) {
+                path = [bundle  pathForResource:realName ofType:type inDirectory:self.imagesDirectory];
+            } else {
+                path = [bundle pathForResource:realName ofType:type];
+            }
+            if (path) {
+                return path;
+            }
+        }
+        return (NSString*)nil;
+    };
     
-    for (NSString* type in fileTypes) {
-        
-        NSString*  retinaFileName = [fileName stringByAppendingString:@"@2x"];
-        if (self.imagesDirectory) {
-            path = [bundle  pathForResource:retinaFileName ofType:type inDirectory:self.imagesDirectory];
+    NSString*(^ImagePathForSubfix)(NSString* name, NSString* subfix) = ^(NSString* name, NSString* subfix) {
+        NSString* realName = [NSString stringWithFormat:@"%@%@",name,subfix];
+        return ImagePathWithName(realName);
+    };
+    
+    static NSMutableArray* ImageNameSubfixArray = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        ImageNameSubfixArray = [@[@"@3x", @"@2x", @""] mutableCopy];
+        NSString* imageSubfix = ImageSubfixForCurrentScreen();
+        NSInteger index = NSNotFound;
+        for (int i = 0; i < ImageNameSubfixArray.count; i++) {
+            NSString* fix = ImageNameSubfixArray[i];
+            if ([fix isEqualToString:imageSubfix]) {
+                index = i;
+            }
+        }
+        if (index != NSNotFound) {
+            [ImageNameSubfixArray exchangeObjectAtIndex:index withObjectAtIndex:0];
         } else {
-            path = [bundle pathForResource:retinaFileName ofType:type];
+            [ImageNameSubfixArray insertObject:imageSubfix atIndex:0];
         }
-        if (path) {
-            break;
-        }
-        if (self.imagesDirectory) {
-            path = [bundle pathForResource:fileName ofType:type inDirectory:self.imagesDirectory];
-        } else {
-            path = [bundle pathForResource:fileName ofType:type];
-        }
+    });
+    
+    for (NSString* subfix in ImageNameSubfixArray) {
+        path = ImagePathForSubfix(name, subfix);
         if (path) {
             break;
         }
@@ -125,3 +169,4 @@
 }
 
 @end
+
