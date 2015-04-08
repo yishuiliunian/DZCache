@@ -14,11 +14,22 @@
 #define DZCachedImageByPath(path) [DZImageShareCache cachedImageFroPath:(path)]
 
 
+typedef enum {
+    DZImageCacheSourceDefault,
+    DZImageCacheSourceDirectory,
+    DZImageCacheSourceAssets
+}DZImageCacheSource;
 typedef void(^GetImageBlock)(UIImage*image);
 
 @interface DZImageCache : NSObject
+@property (nonatomic, assign, readonly) DZImageCacheSource sourceType;
 @property (nonatomic, strong) NSString* imagesDirectory;
 + (DZImageCache*) shareCache;
+//
+- (void) setupDefaultSourceType;
+- (void) setupDirectorySourceTypeWithPath:(NSString*)directory;
+- (void) setupAssetsSourceType;
+//
 - (UIImage*) cachedImageForName:(NSString*)name;
 - (UIImage*) cachedImageForName:(NSString *)name inBundle:(NSBundle*)bundle;
 - (UIImage*) cachedImageFroPath:(NSString*)path;

@@ -38,37 +38,38 @@ NSString* ImageSubfixForCurrentScreen()
     return DZSingleForClass([DZImageCache class]);
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self setupDefaultSourceType];
+    }
+    return self;
+}
+
+- (void) setupAssetsSourceType
+{
+    _sourceType = DZImageCacheSourceAssets;
+}
+
+- (void) setupDirectorySourceTypeWithPath:(NSString *)directory
+{
+    _sourceType = DZImageCacheSourceDirectory;
+    _imagesDirectory = directory;
+}
+
+- (void) setupDefaultSourceType
+{
+    _sourceType = DZImageCacheSourceDefault;
+}
+
 - (UIImage*) cachedImageForName:(NSString*)name
 {
     return [self cachedImageForName:name inBundle:[NSBundle mainBundle]];
 }
 
-- (UIImage*) cachedImageForName:(NSString *)name inBundle:(NSBundle*)bundle
+- (UIImage*) imageLoadFromDiretory:(NSString*)dir name:(NSString*)name bundle:(NSBundle*)bundle fileTypes:(NSArray*)fileTypes
 {
-    if (name == nil) {
-        return nil;
-    }
-    UIImage* image = [DZMemoryShareCache objectForKey:name];
-    if (image) {
-        return image;
-    }
-    
-    NSArray* comps = [name componentsSeparatedByString:@"."];
-    NSCAssert(comps.count <= 2, @"image name error %@", name);
-    NSString* fileName = nil;
-    
-    NSMutableArray* fileTypes = [NSMutableArray new];
-    if (comps.count == 1) {
-        fileName = name;
-        [fileTypes addObject:@"png"];
-        [fileTypes addObject:@"jpg"];
-        [fileTypes addObject:@"jpeg"];
-    }
-    else
-    {
-        fileName = comps[0];
-        [fileTypes addObject:comps[1]];
-    }
     NSString* path = nil;
     
     NSString*(^ImagePathWithName)(NSString* realName) = ^(NSString* realName) {
@@ -117,10 +118,52 @@ NSString* ImageSubfixForCurrentScreen()
         }
     }
     
-    image = [UIImage imageWithContentsOfFile:path];
-    if (image) {
-        [DZMemoryShareCache setObject:image forKey:path];
+    if (!path) {
+        return nil;
     }
+    return [UIImage imageWithContentsOfFile:path];
+}
+- (UIImage*) cachedImageForName:(NSString *)name inBundle:(NSBundle*)bundle
+{
+    if (name == nil) {
+        return nil;
+    }
+    UIImage* image = [DZMemoryShareCache objectForKey:name];
+    if (image) {
+        return image;
+    }
+    
+    NSArray* comps = [name componentsSeparatedByString:@"."];
+    NSCAssert(comps.count <= 2, @"image name error %@", name);
+    NSString* fileName = nil;
+    
+    NSMutableArray* fileTypes = [NSMutableArray new];
+    if (comps.count == 1) {
+        fileName = name;
+        [fileTypes addObject:@"png"];
+        [fileTypes addObject:@"jpg"];
+        [fileTypes addObject:@"jpeg"];
+    }
+    else
+    {
+        fileName = comps[0];
+        [fileTypes addObject:comps[1]];
+    }
+    if ([fileName hasSuffix:@"3x"]) {
+        fileName = [fileName substringToIndex:fileName.length - @"3x".length];
+    } else if ([fileName hasSuffix:@"2x"]) {
+        fileName = [fileName substringToIndex:fileName.length - @"2x".length];
+    }
+    
+    if (_sourceType == DZImageCacheSourceDefault) {
+        image = [self imageLoadFromDiretory:nil name:fileName bundle:bundle fileTypes:fileTypes];
+    } else if (_sourceType == DZImageCacheSourceDirectory) {
+        image = [self imageLoadFromDiretory:self.imagesDirectory name:fileName bundle:bundle fileTypes:fileTypes];
+    } else if (_sourceType == DZImageCacheSourceAssets)
+    {
+        image = [UIImage imageNamed:fileName];
+    }
+    
     return image;
 }
 - (UIImage*) cachedImageFroPath:(NSString*)path
