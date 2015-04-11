@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 #define DZImageShareCache [DZImageCache shareCache]
 
 #define DZCachedImageByName(name) [DZImageShareCache cachedImageForName:(name)]
