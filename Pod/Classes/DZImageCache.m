@@ -164,6 +164,10 @@ NSString* ImageSubfixForCurrentScreen()
         image = [UIImage imageNamed:fileName];
     }
     
+    if (image) {
+        [DZMemoryShareCache setObject:image forKey:name];
+    }
+    
     return image;
 }
 - (UIImage*) cachedImageFroPath:(NSString*)path
