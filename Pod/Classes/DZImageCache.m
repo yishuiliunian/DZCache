@@ -133,21 +133,23 @@ NSString* ImageSubfixForCurrentScreen()
         return image;
     }
     
+    NSArray* types = @[
+                       @"png",
+                       @"jpg",
+                       @"jpeg"
+                       ];
     NSArray* comps = [name componentsSeparatedByString:@"."];
-    NSCAssert(comps.count <= 2, @"image name error %@", name);
     NSString* fileName = nil;
-    
     NSMutableArray* fileTypes = [NSMutableArray new];
-    if (comps.count == 1) {
+    NSRange dotRange = [name rangeOfString:@"." options:NSBackwardsSearch];
+    if (dotRange.location == NSNotFound || (comps.count > 1 && ![types containsObject:comps.lastObject])) {
         fileName = name;
-        [fileTypes addObject:@"png"];
-        [fileTypes addObject:@"jpg"];
-        [fileTypes addObject:@"jpeg"];
+        [fileTypes addObjectsFromArray:types];
     }
     else
     {
-        fileName = comps[0];
-        [fileTypes addObject:comps[1]];
+        fileName = [name substringToIndex:dotRange.location];
+        [fileTypes addObject:comps.lastObject];
     }
     if ([fileName hasSuffix:@"3x"]) {
         fileName = [fileName substringToIndex:fileName.length - @"3x".length];
