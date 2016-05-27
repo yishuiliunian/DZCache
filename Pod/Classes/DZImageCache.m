@@ -31,6 +31,13 @@ NSString* ImageSubfixForCurrentScreen()
     return subfix;
 }
 
+
+@interface DZImageCache () <DZCDNActionListener>
+{
+    NSMutableDictionary* _blockCache;
+}
+@end
+
 @implementation DZImageCache
 
 + (DZImageCache*) shareCache
@@ -42,6 +49,7 @@ NSString* ImageSubfixForCurrentScreen()
 {
     self = [super init];
     if (self) {
+        _blockCache = [NSMutableDictionary new];
         [self setupDefaultSourceType];
     }
     return self;
@@ -194,21 +202,24 @@ NSString* ImageSubfixForCurrentScreen()
             block(image);
         }
     } else {
-        [[DZCDNActionManager shareManager] downloadImage:url downloaded:^(UIImage *image, NSError *error) {
-            if (!error && image) {
-                if (block) {
-                    block(image);
-                    [DZMemoryShareCache setObject:image forKey:url];
-                }
-            } else {
-                if (name) {
-                    image = [self cachedImageForName:name];
-                    if (block) {
-                        block(image);
-                    }
-                }
-            }
-        }];
+        _blockCache[url] = block;
+        [[DZCDNActionManager shareManager] downloadImage:url downloadedWithLisenter:self];
+    }
+}
+
+- (void) CDNActionWithURL:(NSURL *)url didFinishWith:(NSString *)fileURL error:(NSError *)error
+{
+    GetImageBlock block = _blockCache[url];
+    if (!error) {
+        block(nil);
+    } else {
+        UIImage* image  = [UIImage imageWithContentsOfFile:fileURL];
+        if (image) {
+            [DZMemoryShareCache setObject:image forKey:url];
+        }
+        if (block) {
+            block(image);
+        }
     }
 }
 
