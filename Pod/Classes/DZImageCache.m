@@ -211,7 +211,9 @@ NSString* ImageSubfixForCurrentScreen()
 {
     GetImageBlock block = _blockCache[url];
     if (!error) {
-        block(nil);
+        if (block != NULL) {
+           block(nil);
+        }
     } else {
         UIImage* image  = [UIImage imageWithContentsOfFile:fileURL];
         if (image) {
