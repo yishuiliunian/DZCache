@@ -184,10 +184,14 @@ NSString* ImageSubfixForCurrentScreen()
 {
     UIImage* image = [DZMemoryShareCache objectForKey:path];
     if (!image) {
-        image = [UIImage imageWithContentsOfFile:path];
-        if (image) {
-            [DZMemoryShareCache setObject:image forKey:path];
+        if([[NSFileManager defaultManager] fileExistsAtPath:path])
+        {
+            image = [UIImage imageWithContentsOfFile:path];
+            if (image) {
+                [DZMemoryShareCache setObject:image forKey:path];
+            }
         }
+
     }
     return image;
 }
